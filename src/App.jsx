@@ -1,5 +1,7 @@
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
+import AnimatedCube from './AnimatedCube';
+import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
 
 export default function App() {
   return (
@@ -7,11 +9,30 @@ export default function App() {
       <Canvas>
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
-        <mesh>
-          <boxGeometry args={[1, 1, 1]} />
-          <meshStandardMaterial color="hotpink" />
-        </mesh>
+
+        <AnimatedCube
+          position={[-2.5, 0, 0]}
+          rotationSpeed={{ x: 0.2, y: 0.3, z: 0.1 }}
+          color="skyblue"
+          scaleAnimation={{ frequency: 0.5, amplitude: 0.3 }}
+        />
+        <AnimatedCube
+          position={[0, 0, -2]}
+          rotationSpeed={{ x: 0.1, y: 0.2, z: 0.3 }}
+          color="lightgreen"
+        />
+        <AnimatedCube
+          position={[2.5, 0, 0]}
+          rotationSpeed={{ x: 0.3, y: 0.1, z: 0.2 }}
+          color="salmon"
+          scaleAnimation={{ frequency: 1.5, amplitude: 0.15 }}
+        />
         <OrbitControls />
+
+        <EffectComposer>
+          <Bloom luminanceThreshold={0.3} luminanceSmoothing={0.9} height={300} intensity={0.7} />
+          <Vignette eskil={false} offset={0.1} darkness={1.1} />
+        </EffectComposer>
       </Canvas>
     </div>
   )
