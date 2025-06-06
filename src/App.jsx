@@ -6,7 +6,10 @@ import { EffectComposer, Bloom, Vignette } from '@react-three/postprocessing';
 export default function App() {
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
-      <Canvas>
+      <Canvas
+        gl={{ antialias: true, alpha: false }}
+        onCreated={({ gl }) => gl.setClearColor('#222222')}
+      >
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
 

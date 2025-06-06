@@ -1,10 +1,12 @@
 import React, { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
+import { useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 
 function AnimatedCube({ position, rotationSpeed, color = 'orange', scaleAnimation = { frequency: 1, amplitude: 0.2 } }) {
   const meshRef = useRef();
   const originalScale = useRef(new THREE.Vector3(1, 1, 1)); // Store original scale
+  const texture = useTexture('https://threejsfundamentals.org/threejs/resources/images/wall.jpg');
 
   useFrame((state, delta) => {
     const time = state.clock.getElapsedTime();
@@ -32,7 +34,7 @@ function AnimatedCube({ position, rotationSpeed, color = 'orange', scaleAnimatio
   return (
     <mesh ref={meshRef} position={position}>
       <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={color} />
+      <meshStandardMaterial color={color} map={texture} />
     </mesh>
   );
 }
